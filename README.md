@@ -166,6 +166,15 @@ This virtual resource will get collected by the `::splunk::forwarder` class if
 it is tagged with `splunk_forwarder` and will add the appropriate setting to
 the inputs.conf file and refresh the service.
 
+### Setting the default index for the splunk sender ###
+
+                @splunkforwarder_input { 'default/index':
+                  value => 'linux',
+                }
+
+Will send all the defined input from this client to the index specified, in this example, the index called "linux"
+
+
 ### Setting the `admin` user's password
 
 The module has the facility to set Splunk Enterprise's `admin` password at installation time by leveraging the [user-seed.conf](https://docs.splunk.com/Documentation/Splunk/latest/Admin/User-seedconf) method described as a best practice in the Splunk docs. The way Splunk implements this prevents Puppet from managing the password in an idempotent way but makes resetting the password through the web console possible. You can also use Puppet to do a one time reset too by setting the appropriate parameters on `splunk::enterprise` but leaving these parameters set to `true` will cause corrective change on each run of the Puppet Agent.
